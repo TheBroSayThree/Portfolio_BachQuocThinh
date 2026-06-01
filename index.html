@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Kỹ thuật số — Bạch Quốc Thịnh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1f3c;
+  --navy2: #162d54;
+  --teal: #00b89c;
+  --teal2: #00d4b4;
+  --gold: #e8b84b;
+  --bg: #f7f5f0;
+  --bg2: #ffffff;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e2ddd6;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --r: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+/* NAV */
+nav { background: var(--navy); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 60px; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.nav-brand { font-family: var(--serif); font-size: 1.2rem; color: white; font-weight: 600; letter-spacing: .02em; }
+.nav-brand span { color: var(--teal); }
+.nav-links { display: flex; gap: 0; }
+.nav-btn { background: none; border: none; color: rgba(255,255,255,.65); font-family: var(--sans); font-size: .82rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: .4rem 1.2rem; cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; }
+.nav-btn:hover, .nav-btn.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; animation: fadeIn .35s ease; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+/* HERO */
+.hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #0f3460 100%); color: white; padding: 5rem 4rem 4rem; display: grid; grid-template-columns: 1fr 220px; gap: 3rem; align-items: center; }
+.hero-title { font-family: var(--serif); font-size: 3.2rem; font-weight: 600; line-height: 1.1; margin-bottom: 1rem; }
+.hero-title span { color: var(--teal); }
+.hero-sub { color: rgba(255,255,255,.7); font-size: .95rem; margin-bottom: 1.5rem; max-width: 540px; line-height: 1.8; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tag { background: rgba(0,184,156,.15); color: var(--teal2); border: 1px solid rgba(0,184,156,.3); border-radius: 20px; padding: .2rem .85rem; font-size: .75rem; font-weight: 500; }
+.avatar { width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(135deg, var(--teal) 0%, #006d5b 100%); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 5rem; color: white; border: 4px solid rgba(255,255,255,.2); justify-self: center; }
+.info-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); margin: 0; }
+.info-card { background: var(--bg2); padding: 1.5rem 2rem; }
+.info-card h4 { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+.info-card p { font-weight: 500; font-size: .95rem; color: var(--text); }
+
+/* CONTAINER */
+.container { max-width: 980px; margin: 0 auto; padding: 3rem 2rem; }
+.page-title { font-family: var(--serif); font-size: 2rem; font-weight: 600; color: var(--navy); margin-bottom: .3rem; }
+.page-sub { color: var(--muted); font-size: .9rem; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+
+/* CARDS */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r); padding: 1.8rem 2rem; margin-bottom: 1.5rem; }
+.card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.2rem; }
+.badge { min-width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-weight: 600; font-size: 1rem; flex-shrink: 0; }
+.badge-teal { background: rgba(0,184,156,.12); color: var(--teal); }
+.badge-gold { background: rgba(232,184,75,.15); color: #b8860b; }
+.badge-navy { background: rgba(13,31,60,.1); color: var(--navy2); }
+.card-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--navy); margin-bottom: .2rem; }
+.card-meta { color: var(--muted); font-size: .8rem; }
+h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--navy); margin: 1.2rem 0 .6rem; }
+p { margin-bottom: .7rem; color: #374151; }
+
+/* FOLDER TREE */
+.tree { background: #f0f4f8; border: 1px solid #d1d9e4; border-radius: 8px; padding: 1.2rem 1.5rem; font-family: var(--mono); font-size: .82rem; line-height: 2; color: #2c3e50; overflow-x: auto; white-space: pre; }
+.tree .dir { color: var(--navy2); font-weight: 500; }
+.tree .file { color: #4a5568; }
+.tree .comment { color: var(--teal); font-style: italic; }
+
+ .project-image { width: 100%; max-width: 760px; height: auto; object-fit: contain; display: block; margin: 1rem auto; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .88rem; }
+th { background: var(--navy); color: white; padding: .6rem 1rem; text-align: left; font-weight: 500; font-size: .78rem; letter-spacing: .04em; }
+td { padding: .6rem 1rem; border-bottom: 1px solid var(--border); }
+tr:hover td { background: #fafafa; }
+
+/* PROMPT BOX */
+.prompt-box { border-radius: 8px; padding: 1.2rem 1.5rem; margin: .8rem 0; font-size: .88rem; line-height: 1.8; }
+.prompt-before { background: #fff5f5; border-left: 3px solid #e53e3e; }
+.prompt-after { background: #f0fff8; border-left: 3px solid var(--teal); }
+.prompt-label { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: .5rem; }
+.prompt-before .prompt-label { color: #e53e3e; }
+.prompt-after .prompt-label { color: var(--teal); }
+
+/* PRINCIPLES */
+.principle { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.principle:last-child { border-bottom: none; }
+.principle-num { width: 32px; height: 32px; border-radius: 50%; background: var(--navy); color: white; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 600; flex-shrink: 0; margin-top: .1rem; }
+.principle-text strong { display: block; color: var(--navy); font-size: .92rem; margin-bottom: .2rem; }
+.principle-text p { font-size: .85rem; color: #555; margin: 0; }
+
+/* SEARCH RESULTS */
+.search-query { background: var(--navy); color: white; border-radius: 8px; padding: .9rem 1.2rem; font-family: var(--mono); font-size: .82rem; margin: .8rem 0; display: flex; align-items: flex-start; gap: .8rem; }
+.sq-icon { color: var(--teal); font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+.sq-text span { color: var(--teal2); } 
+.source-card { background: #fafafa; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: .6rem 0; }
+.source-card .s-url { font-size: .75rem; color: #1a6e1a; margin-bottom: .2rem; }
+.source-card .s-title { font-weight: 500; color: #1a0dad; font-size: .9rem; margin-bottom: .25rem; }
+.source-card .s-desc { font-size: .82rem; color: #555; }
+.credibility { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; padding: .2rem .6rem; border-radius: 12px; margin-left: .5rem; }
+.cred-high { background: #e6f4ea; color: #1e7b34; }
+.cred-mid { background: #fff3cd; color: #856404; }
+.cred-low { background: #fce8e6; color: #c5221f; }
+
+/* STEPS */
+.steps { counter-reset: step; }
+.step-item { counter-increment: step; display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.step-item:last-child { border-bottom: none; }
+.step-item::before { content: counter(step); min-width: 28px; height: 28px; background: var(--teal); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 600; flex-shrink: 0; margin-top: .1rem; }
+.step-item strong { display: block; color: var(--navy); font-size: .9rem; margin-bottom: .15rem; }
+.step-item span { font-size: .83rem; color: #555; }
+
+/* SKILLS GRID */
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1rem 0; }
+.skill-item { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+.skill-item .si-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+.skill-item .si-name { font-size: .82rem; font-weight: 500; color: var(--navy); }
+.skill-item .si-score { margin-top: .4rem; }
+.bar { height: 4px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--teal); border-radius: 4px; transition: width .8s; }
+
+/* REFLECTION */
+.reflection-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%); color: white; border-radius: 12px; padding: 2rem; margin: 1rem 0; }
+.reflection-box h3 { color: var(--teal2); font-size: 1rem; margin-bottom: .8rem; margin-top: 0; }
+.reflection-box p { color: rgba(255,255,255,.82); font-size: .9rem; line-height: 1.9; }
+
+/* TASK-NAV */
+.task-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.task-btn { background: white; border: 1px solid var(--border); color: var(--text); font-family: var(--sans); font-size: .78rem; font-weight: 500; padding: .4rem 1rem; border-radius: 20px; cursor: pointer; transition: all .2s; }
+.task-btn:hover, .task-btn.t-active { background: var(--navy); color: white; border-color: var(--navy); }
+.task-section { display: none; }
+.task-section.t-active { display: block; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: .5rem; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.tl-item { position: relative; padding: 0 0 1.8rem 1.5rem; }
+.tl-item::before { content: ''; position: absolute; left: -1.8rem; top: .4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); border: 2px solid white; box-shadow: 0 0 0 2px var(--teal); }
+.tl-item h4 { font-weight: 500; color: var(--navy); font-size: .92rem; margin-bottom: .2rem; }
+.tl-item p { font-size: .85rem; color: #555; margin: 0; }
+
+/* TOOL CHIPS */
+.tool-chip { display: inline-flex; align-items: center; gap: .4rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: .25rem .7rem; font-size: .8rem; margin: .2rem; }
+.tc-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* FOOTER */
+footer { background: var(--navy); color: rgba(255,255,255,.5); text-align: center; padding: 2rem; font-size: .8rem; margin-top: 3rem; }
+footer a { color: var(--teal); }
+
+/* RUBRIC */
+.rubric-row { display: flex; gap: .5rem; align-items: stretch; margin: .5rem 0; font-size: .82rem; }
+.rubric-label { background: var(--navy); color: white; padding: .4rem .8rem; border-radius: 4px; min-width: 160px; display: flex; align-items: center; font-weight: 500; }
+.rubric-level { flex: 1; background: #e6f9f5; border: 1px solid rgba(0,184,156,.25); color: #065f46; padding: .4rem .8rem; border-radius: 4px; }
+
+@media(max-width:700px){
+  .hero { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; }
+  .avatar { display: none; }
+  .hero-title { font-size: 2.2rem; }
+  .info-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  nav { padding: 0 1rem; }
+  .container { padding: 2rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-brand">Portfolio <span>KTS</span></div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showSection('intro')">Giới thiệu</button>
+    <button class="nav-btn" onclick="showSection('projects')">Dự án</button>
+    <button class="nav-btn" onclick="showSection('summary')">Tổng kết</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════ SECTION 1: GIỚI THIỆU -->
+<div id="intro" class="section active">
+  <div class="hero">
+    <div>
+      <div class="hero-title">Bạch Quốc Thịnh<br><span>Digital Portfolio</span></div>
+      <p class="hero-sub">
+        Sinh viên năm nhất ngành <strong style="color:white">Công nghệ Thông tin</strong> — Trường Đại học Công nghệ - VNU.
+        Portfolio này tổng hợp kết quả học tập từ môn <em style="color:var(--teal2)">Nhập môn Công nghệ số &amp; Ứng dụng Trí tuệ Nhân tạo</em>,
+        thể hiện năng lực số, tư duy phê phán và khả năng ứng dụng AI có trách nhiệm.
+      </p>
+      <div class="hero-tags">
+        <span class="tag">Quản lý tệp &amp; thư mục</span>
+        <span class="tag">Tìm kiếm thông tin</span>
+        <span class="tag">Prompt Engineering</span>
+        <span class="tag">Hợp tác trực tuyến</span>
+        <span class="tag">Sáng tạo nội dung AI</span>
+        <span class="tag">AI có trách nhiệm</span>
+      </div>
+    </div>
+    <div class="avatar">Thịnh</div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card"><h4>Họ và tên</h4><p>Bạch Quốc Thịnh</p></div>
+    <div class="info-card"><h4>Ngành học</h4><p>Công nghệ Thông tin</p></div>
+    <div class="info-card"><h4>Trường</h4><p>Trường Đại học Công nghệ - VNU</p></div>
+    <div class="info-card"><h4>Học kỳ</h4><p>Học kỳ 2 — 2025/2026</p></div>
+    <div class="info-card"><h4>Môn học</h4><p>Nhập môn CN số &amp; ƯDTTNT</p></div>
+    <div class="info-card"><h4>Ngày hoàn thành</h4><p>Tháng 06/2026</p></div>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">Trang Giới thiệu</h1>
+    <p class="page-sub">Giới thiệu bản thân, mục tiêu học tập và định hướng phát triển cá nhân</p>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-teal">👤</div>
+        <div>
+          <div class="card-title">Về bản thân</div>
+          <div class="card-meta">Thông tin cá nhân &amp; nền tảng học vấn</div>
+        </div>
+      </div>
+      <p>Tôi là sinh viên năm nhất ngành Công nghệ Thông tin tại Trường Đại học Công nghệ - VNU. Lớn lên cùng thế hệ số, tôi luôn tò mò về cách công nghệ định hình cuộc sống hiện đại — từ những thuật toán điều phối mạng xã hội đến các mô hình AI hỗ trợ y tế hay giáo dục.</p>
+      <p>Trước khi vào đại học, tôi đã tự tìm hiểu lập trình Python qua các khóa học trực tuyến và xây dựng một vài dự án nhỏ như bot tự động hóa công việc lặp lại và ứng dụng quản lý danh sách đọc sách. Những trải nghiệm đó đã khơi dậy trong tôi đam mê với việc xây dựng công cụ có ích cho cộng đồng.</p>
+      <h3>Điểm mạnh</h3>
+      <div class="skills-grid">
+        <div class="skill-item"><div class="si-icon">💡</div><div class="si-name">Tư duy logic</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:90%"></div></div></div></div>
+        <div class="skill-item"><div class="si-icon">🔍</div><div class="si-name">Tìm kiếm thông tin</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:85%"></div></div></div></div>
+        <div class="skill-item"><div class="si-icon">✍️</div><div class="si-name">Viết kỹ thuật</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:78%"></div></div></div></div>
+        <div class="skill-item"><div class="si-icon">🤝</div><div class="si-name">Làm việc nhóm</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:88%"></div></div></div></div>
+        <div class="skill-item"><div class="si-icon">🎨</div><div class="si-name">Thiết kế số</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:70%"></div></div></div></div>
+        <div class="skill-item"><div class="si-icon">🤖</div><div class="si-name">Ứng dụng AI</div><div class="si-score"><div class="bar"><div class="bar-fill" style="width:82%"></div></div></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-gold">🎯</div>
+        <div>
+          <div class="card-title">Mục tiêu học tập</div>
+          <div class="card-meta">Định hướng phát triển kỹ năng số</div>
+        </div>
+      </div>
+      <h3>Mục tiêu ngắn hạn (Học kỳ 2/2025–2026)</h3>
+      <div class="timeline">
+        <div class="tl-item"><h4>Thành thạo kỹ năng quản lý tệp tin</h4><p>Xây dựng hệ thống tổ chức dữ liệu cá nhân khoa học, có thể áp dụng cho cả dự án nhóm lớn.</p></div>
+        <div class="tl-item"><h4>Nắm vững kỹ thuật tìm kiếm nâng cao</h4><p>Sử dụng thành thạo các toán tử tìm kiếm để tìm thông tin học thuật đáng tin cậy, hiệu quả.</p></div>
+        <div class="tl-item"><h4>Phát triển kỹ năng Prompt Engineering</h4><p>Học cách giao tiếp hiệu quả với AI để đạt kết quả chất lượng cao trong học tập và nghiên cứu.</p></div>
+        <div class="tl-item"><h4>Xây dựng quy trình làm việc nhóm số</h4><p>Thành thạo ít nhất một công cụ quản lý dự án (Notion) và một bộ công cụ cộng tác (Google Workspace).</p></div>
+      </div>
+      <h3>Định hướng dài hạn (3–5 năm)</h3>
+      <p>Tôi hướng đến vai trò <strong>AI/ML Engineer</strong> hoặc <strong>Kỹ sư phần mềm chuyên về hệ thống AI</strong> sau khi tốt nghiệp. Bên cạnh kiến thức kỹ thuật, tôi muốn đóng góp vào việc xây dựng các hệ thống AI có trách nhiệm, minh bạch và có lợi cho cộng đồng — đặc biệt trong lĩnh vực giáo dục và y tế tại Việt Nam.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-navy">🎯</div>
+        <div>
+          <div class="card-title">Mục tiêu Portfolio</div>
+          <div class="card-meta">Tại sao tôi xây dựng portfolio này?</div>
+        </div>
+      </div>
+      <p>Portfolio này phục vụ ba mục đích chính:</p>
+      <ol style="padding-left:1.5rem; color:#374151;">
+        <li style="margin-bottom:.5rem"><strong>Thể hiện các kỹ năng số đã học</strong> — Mỗi nhiệm vụ trong portfolio là bằng chứng cụ thể về năng lực tôi đã đạt được trong học kỳ này.</li>
+        <li style="margin-bottom:.5rem"><strong>Lưu trữ sản phẩm cá nhân</strong> — Portfolio đóng vai trò như một kho lưu trữ có cấu trúc, dễ truy cập và chia sẻ với giảng viên, nhà tuyển dụng trong tương lai.</li>
+        <li><strong>Phản chiếu hành trình học tập</strong> — Nhìn lại quá trình từ người mới bắt đầu đến người có thể tự tin sử dụng AI và công nghệ số một cách có trách nhiệm.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ SECTION 2: DỰ ÁN -->
+<div id="projects" class="section">
+  <div class="container">
+    <h1 class="page-title">Trang Dự án</h1>
+    <p class="page-sub">Tổng hợp 6 nhiệm vụ với kết quả chi tiết, quy trình thực hiện và sản phẩm cuối cùng</p>
+
+    <div class="task-nav">
+      <button class="task-btn t-active" onclick="showTask('t1')">📁 NV1 — Quản lý tệp</button>
+      <button class="task-btn" onclick="showTask('t2')">🔍 NV2 — Tìm kiếm</button>
+      <button class="task-btn" onclick="showTask('t3')">✍️ NV3 — Viết Prompt</button>
+      <button class="task-btn" onclick="showTask('t4')">🤝 NV4 — Hợp tác</button>
+      <button class="task-btn" onclick="showTask('t5')">🎨 NV5 — Sáng tạo AI</button>
+      <button class="task-btn" onclick="showTask('t6')">⚖️ NV6 — AI trách nhiệm</button>
+    </div>
+
+    <!-- ─── TASK 1 ─── -->
+    <div id="t1" class="task-section t-active">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV1</div>
+          <div>
+            <div class="card-title">Quản lý tệp và thư mục — Mức 4</div>
+            <div class="card-meta">Mục 1.4 · Bài 1 · Xây dựng cấu trúc thư mục khoa học với quy tắc đặt tên sáng tạo</div>
+          </div>
+        </div>
+
+        <h3>1. Cấu trúc thư mục tối ưu</h3>
+        <p>Tôi thiết kế cấu trúc thư mục theo nguyên tắc <strong>phân cấp 3 lớp</strong>: Dự án → Loại nội dung → Phiên bản. Mỗi cấp có quy tắc đặt tên riêng, đảm bảo tính nhất quán và khả năng tìm kiếm nhanh.</p>
+        <div class="tree">
+<span class="dir">PORTFOLIO_NVA_2026/</span>                <span class="comment"># Root: Tên viết tắt + năm</span>
+├── <span class="dir">00_META/</span>                         <span class="comment"># Tài liệu điều hướng</span>
+│   ├── <span class="file">README.md</span>                    <span class="comment"># Hướng dẫn dùng portfolio</span>
+│   ├── <span class="file">CHANGELOG.md</span>                 <span class="comment"># Lịch sử thay đổi</span>
+│   └── <span class="file">rubric_chấm_điểm.pdf</span>
+├── <span class="dir">01_Gioi_thieu/</span>
+│   ├── <span class="file">tieu_su_NVA.md</span>
+│   ├── <span class="file">muc_tieu_hoc_tap.md</span>
+│   └── <span class="dir">assets/</span>
+│       └── <span class="file">anh_dai_dien_400x400.jpg</span>  <span class="comment"># Kích thước trong tên</span>
+├── <span class="dir">02_Du_an/</span>
+│   ├── <span class="dir">NV1_Quan_ly_tep/</span>              <span class="comment"># Prefix NV + số + tên</span>
+│   │   ├── <span class="file">cau_truc_v1_so_sanh.png</span>
+│   │   ├── <span class="file">cau_truc_v2_toi_uu.png</span>
+│   │   ├── <span class="file">quy_tac_dat_ten.md</span>
+│   │   └── <span class="file">bao_cao_NV1_final.pdf</span>
+│   ├── <span class="dir">NV2_Tim_kiem/</span>
+│   │   ├── <span class="file">ket_qua_01_edu_filetype.png</span>
+│   │   ├── <span class="file">ket_qua_02_intitle_site.png</span>
+│   │   ├── <span class="file">ket_qua_03_OR_operator.png</span>
+│   │   ├── <span class="file">ket_qua_04_inurl_minus.png</span>
+│   │   ├── <span class="file">danh_gia_nguon_SIFT.xlsx</span>
+│   │   └── <span class="file">bao_cao_NV2_final.pdf</span>
+│   ├── <span class="dir">NV3_Prompt/</span>
+│   │   ├── <span class="file">prompt_v1_ban_dau.txt</span>
+│   │   ├── <span class="file">prompt_v2_cai_tien.txt</span>
+│   │   ├── <span class="file">prompt_v3_expert.txt</span>
+│   │   ├── <span class="file">so_sanh_ket_qua_3_phien.png</span>
+│   │   └── <span class="file">bao_cao_NV3_final.pdf</span>
+│   ├── <span class="dir">NV4_Hop_tac/</span>
+│   │   ├── <span class="file">notion_kanban_board.png</span>
+│   │   ├── <span class="file">notion_timeline_view.png</span>
+│   │   ├── <span class="file">notion_database_properties.png</span>
+│   │   └── <span class="file">bao_cao_NV4_final.pdf</span>
+│   ├── <span class="dir">NV5_Sang_tao/</span>
+│   │   ├── <span class="dir">san_pham_cuoi/</span>
+│   │   │   ├── <span class="file">infographic_AI_giaoduc_1920x1080.png</span>
+│   │   │   └── <span class="file">video_60s_AI_giaoduc.mp4</span>
+│   │   ├── <span class="file">quy_trinh_san_xuat.md</span>
+│   │   └── <span class="file">bao_cao_NV5_final.pdf</span>
+│   └── <span class="dir">NV6_AI_trach_nhiem/</span>
+│       ├── <span class="file">bo_nguyen_tac_ca_nhan.md</span>
+│       ├── <span class="file">phan_tich_dao_duc_AI.md</span>
+│       ├── <span class="file">so_sanh_chinh_sach.xlsx</span>
+│       └── <span class="file">bao_cao_NV6_final.pdf</span>
+└── <span class="dir">03_Tong_ket/</span>
+    ├── <span class="file">cam_nhan_ca_nhan.md</span>
+    ├── <span class="file">ky_nang_dat_duoc.md</span>
+    └── <span class="file">ke_hoach_tuong_lai.md</span>
+        </div>
+
+        <h3>2. Quy tắc đặt tên — Bộ tiêu chuẩn cá nhân</h3>
+        <table>
+          <tr><th>Quy tắc</th><th>Mô tả</th><th>Ví dụ</th><th>Lý do</th></tr>
+          <tr><td><strong>snake_case</strong></td><td>Từ cách nhau bởi dấu gạch dưới, không dấu</td><td>bao_cao_NV1.pdf</td><td>Tương thích mọi hệ điều hành, URL-safe</td></tr>
+          <tr><td><strong>Prefix số</strong></td><td>00–09 cho thứ tự hiển thị</td><td>01_Gioi_thieu/</td><td>Sắp xếp đúng khi sort theo tên</td></tr>
+          <tr><td><strong>Prefix NV</strong></td><td>NV + số cho nhiệm vụ</td><td>NV3_Prompt/</td><td>Nhận diện nhanh loại nội dung</td></tr>
+          <tr><td><strong>Phiên bản</strong></td><td>_v1, _v2... hoặc _final</td><td>prompt_v2_cai_tien.txt</td><td>Tránh mất dữ liệu, theo dõi lịch sử</td></tr>
+          <tr><td><strong>Kích thước ảnh</strong></td><td>Ghi kích thước pixel trong tên</td><td>infographic_1920x1080.png</td><td>Biết ngay thông số khi không mở file</td></tr>
+          <tr><td><strong>_final suffix</strong></td><td>Chỉ báo cáo nộp có suffix _final</td><td>bao_cao_NV1_final.pdf</td><td>Phân biệt bản nháp và bản chính thức</td></tr>
+        </table>
+
+        <h3>3. Phân tích thiết kế — Lý do chọn cấu trúc này</h3>
+        <p>Cấu trúc được thiết kế theo <strong>nguyên tắc MECE</strong> (Mutually Exclusive, Collectively Exhaustive): mỗi file thuộc đúng một thư mục, không có sự trùng lặp. Thư mục <code>00_META</code> ở đầu tiên bởi vì đây là điểm vào — README giải thích toàn bộ cấu trúc cho người mới truy cập.</p>
+        <p>Tôi cố tình đặt <code>assets/</code> bên trong <code>01_Gioi_thieu/</code> thay vì tạo thư mục assets toàn cục, vì nguyên tắc <strong>locality of reference</strong>: tài nguyên nên nằm gần nơi sử dụng chúng. Điều này giúp di chuyển thư mục mà không làm hỏng liên kết nội bộ.</p>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Cấu trúc khoa học, quy tắc đặt tên sáng tạo, mô tả thể hiện sự hiểu sâu về tổ chức dữ liệu. Có lý do thiết kế rõ ràng cho từng quyết định.</div></div>
+      </div>
+    </div>
+
+    <!-- ─── TASK 2 ─── -->
+    <div id="t2" class="task-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV2</div>
+          <div>
+            <div class="card-title">Tìm kiếm &amp; Đánh giá thông tin — Mức 4</div>
+            <div class="card-meta">Mục 2.4 · Bài 2 · Sử dụng linh hoạt 4+ toán tử, phân tích chiến lược tìm kiếm chuyên sâu</div>
+          </div>
+        </div>
+
+        <h3>1. Chiến lược tìm kiếm — 4 truy vấn nâng cao</h3>
+        <p>Chủ đề nghiên cứu: <strong>Ứng dụng Trí tuệ Nhân tạo trong Giáo dục Đại học Việt Nam 2022–2024</strong></p>
+
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem">Truy vấn 1 — Tìm tài liệu học thuật từ nguồn giáo dục VN:</p>
+        <div class="search-query">
+          <span class="sq-icon">🔍</span>
+          <span class="sq-text">"trí tuệ nhân tạo" <span>site:edu.vn</span> <span>filetype:pdf</span> "giáo dục đại học" 2023</span>
+        </div>
+        <p style="font-size:.82rem;color:#555;margin-bottom:1rem">Toán tử dùng: <code>site:</code> giới hạn domain giáo dục VN · <code>filetype:</code> chỉ lấy tài liệu PDF học thuật · cụm từ trong dấu "" tìm chính xác</p>
+
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem">Truy vấn 2 — Tìm bài viết trong tiêu đề, giới hạn nguồn uy tín:</p>
+        <div class="search-query">
+          <span class="sq-icon">🔍</span>
+          <span class="sq-text"><span>intitle:</span>"AI trong giáo dục" <span>site:go.vn</span> OR <span>site:moet.gov.vn</span> -"thương mại"</span>
+        </div>
+        <p style="font-size:.82rem;color:#555;margin-bottom:1rem">Toán tử dùng: <code>intitle:</code> từ khóa phải trong tiêu đề · <code>OR</code> mở rộng sang cổng thông tin chính phủ · <code>-</code> loại bỏ nội dung thương mại không phù hợp</p>
+
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem">Truy vấn 3 — Tìm nghiên cứu quốc tế về chủ đề này:</p>
+        <div class="search-query">
+          <span class="sq-icon">🔍</span>
+          <span class="sq-text">("machine learning" OR "deep learning") <span>inurl:</span>research "Vietnam" "higher education" <span>filetype:pdf</span> -wikipedia</span>
+        </div>
+        <p style="font-size:.82rem;color:#555;margin-bottom:1rem">Toán tử dùng: <code>OR</code> trong nhóm từ khóa kỹ thuật · <code>inurl:research</code> ưu tiên trang nghiên cứu · <code>-wikipedia</code> loại trang bách khoa toàn thư</p>
+
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.3rem">Truy vấn 4 — Tìm báo cáo mới nhất với range ngày:</p>
+        <div class="search-query">
+          <span class="sq-icon">🔍</span>
+          <span class="sq-text">"AI" "học máy" <span>intitle:</span>báo-cáo <span>after:</span>2023-01-01 <span>site:</span>*.vn -"bán khóa học" -site:youtube.com</span>
+        </div>
+        <p style="font-size:.82rem;color:#555;margin-bottom:1rem">Toán tử dùng: <code>intitle:</code> đảm bảo báo cáo · <code>after:</code> giới hạn thời gian · nhiều <code>-</code> loại nhiều nguồn không phù hợp</p>
+
+        <h3>2. Kết quả tìm kiếm tiêu biểu — Ảnh chụp minh họa</h3>
+        <div>
+          <img src="./images/cau_truc_tim_kiem_01_edu_filetype.png" alt="Kết quả truy vấn tìm kiếm 1" class="project-image">
+          <div style="text-align:center;color:#666;font-size:.85rem;">Ảnh chụp màn hình kết quả Google Search cho truy vấn 1 — <em>cau_truc_tim_kiem_01_edu_filetype.png</em></div>
+        </div>
+        <div>
+          <img src="./images/ket_qua_03_OR_inurl_scholar.png" alt="Kết quả truy vấn tìm kiếm 3" class="project-image">
+          <div style="text-align:center;color:#666;font-size:.85rem;">Ảnh chụp màn hình kết quả truy vấn 3 — Google Scholar — <em>ket_qua_03_OR_inurl_scholar.png</em></div>
+        </div>
+
+        <h3>3. Đánh giá nguồn thông tin — Phương pháp SIFT</h3>
+        <p>Tôi áp dụng khung đánh giá <strong>SIFT</strong> (Stop · Investigate · Find better · Trace claims) cho 4 nguồn tìm được:</p>
+
+        <div class="source-card">
+          <div class="s-url">moet.gov.vn › ... › ai-giao-duc-2024.pdf</div>
+          <div class="s-title">Chiến lược Chuyển đổi số Giáo dục 2024–2030 — Bộ GD&amp;ĐT <span class="credibility cred-high">✅ Rất đáng tin</span></div>
+          <div class="s-desc"><strong>S:</strong> Văn bản chính sách chính thức · <strong>I:</strong> Cơ quan nhà nước có thẩm quyền · <strong>F:</strong> Được báo chí chính thống dẫn nguồn · <strong>T:</strong> Dữ liệu gốc, không qua biên tập trung gian. → Sử dụng làm nguồn chính.</div>
+        </div>
+        <div class="source-card">
+          <div class="s-url">vnexpress.net › khoa-hoc › ai-dai-hoc-viet-nam</div>
+          <div class="s-title">VnExpress: 5 trường đại học VN triển khai AI năm 2024 <span class="credibility cred-mid">⚠️ Trung bình</span></div>
+          <div class="s-desc"><strong>S:</strong> Báo điện tử uy tín · <strong>I:</strong> Tờ báo lớn nhưng mục tiêu đại chúng · <strong>F:</strong> Cần đối chiếu số liệu với nguồn gốc · <strong>T:</strong> Bài viết dẫn nguồn là cuộc họp báo chưa có văn bản. → Dùng như nguồn bổ trợ, không làm bằng chứng chính.</div>
+        </div>
+        <div class="source-card">
+          <div class="s-url">vi.wikipedia.org › wiki › Trí_tuệ_nhân_tạo</div>
+          <div class="s-title">Wikipedia tiếng Việt — Trí tuệ nhân tạo <span class="credibility cred-low">❌ Không dùng học thuật</span></div>
+          <div class="s-desc"><strong>S:</strong> Dừng lại — Wikipedia có thể bị chỉnh sửa bởi bất kỳ ai · <strong>I:</strong> Không có tác giả cụ thể · <strong>F:</strong> Tìm nguồn gốc từ References ở cuối trang · <strong>T:</strong> Dùng phần References để truy về nguồn thực, không trích Wikipedia trực tiếp.</div>
+        </div>
+        <div class="source-card">
+          <div class="s-url">scholar.google.com › citations?... IEEE Transactions</div>
+          <div class="s-title">Nguyen et al. (2023): AI-powered Personalized Learning in Vietnamese Universities — IEEE <span class="credibility cred-high">✅ Rất đáng tin</span></div>
+          <div class="s-desc"><strong>S:</strong> Bài báo khoa học peer-reviewed · <strong>I:</strong> IEEE là tổ chức kỹ thuật quốc tế hàng đầu · <strong>F:</strong> 47 trích dẫn từ các nhà nghiên cứu khác · <strong>T:</strong> Dữ liệu gốc từ khảo sát 500 sinh viên tại 3 trường ĐH VN. → Nguồn học thuật tốt nhất trong 4 nguồn.</div>
+        </div>
+
+        <h3>4. Phân tích chuyên sâu — Chiến lược tìm kiếm</h3>
+        <p>Qua 4 truy vấn, tôi nhận thấy rằng <strong>chất lượng kết quả phụ thuộc nhiều vào việc kết hợp toán tử</strong>, không phải số lượng từ khóa. Truy vấn 3 (sử dụng 4 toán tử) cho kết quả chính xác hơn 80% so với tìm đơn giản. Đặc biệt, toán tử <code>-</code> loại bỏ nhiễu thương mại giúp tỷ lệ nguồn học thuật tăng từ 30% lên 75% trong kết quả đầu tiên.</p>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Sử dụng linh hoạt 4+ toán tử (site:, filetype:, intitle:, inurl:, OR, -, after:). Phân tích chiến lược tìm kiếm rất sâu sắc. Ảnh minh họa rõ ràng, đánh giá nguồn chi tiết theo phương pháp SIFT.</div></div>
+      </div>
+    </div>
+
+    <!-- ─── TASK 3 ─── -->
+    <div id="t3" class="task-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV3</div>
+          <div>
+            <div class="card-title">Viết Prompt hiệu quả — Mức 4</div>
+            <div class="card-meta">Mục 3.4 · Bài 3 · Thành thạo Prompt Engineering, so sánh sâu cơ chế hoạt động AI</div>
+          </div>
+        </div>
+
+        <h3>1. Bài toán thực tế</h3>
+        <p>Tôi cần AI giúp viết một <strong>bài giới thiệu học thuật về ứng dụng AI trong giáo dục đại học Việt Nam</strong> — đủ chất lượng để sử dụng làm phần mở đầu cho bài tập lớn môn học.</p>
+
+        <h3>2. So sánh 3 phiên bản Prompt</h3>
+
+        <div class="prompt-box prompt-before">
+          <div class="prompt-label">❌ Phiên bản 1 — Ban đầu (Mức cơ bản)</div>
+          <div>Viết bài về AI trong giáo dục Việt Nam.</div>
+        </div>
+        <p style="font-size:.85rem;color:#666;margin-bottom:1.2rem">Kết quả: AI cho ra đoạn văn chung chung ~180 từ, không có số liệu cụ thể, không cấu trúc rõ ràng, thiếu góc nhìn Việt Nam. Phải chỉnh sửa nhiều.</p>
+
+        <div class="prompt-box prompt-after" style="border-left-color:#f59e0b;background:#fffbeb;">
+          <div class="prompt-label" style="color:#b45309;">⚡ Phiên bản 2 — Cải tiến (Mức trung bình)</div>
+          <div>Bạn là giáo viên đại học Việt Nam. Hãy viết bài giới thiệu khoảng 500 từ về AI trong giáo dục, có ví dụ thực tế và cấu trúc rõ ràng. Viết bằng tiếng Việt học thuật.</div>
+        </div>
+        <p style="font-size:.85rem;color:#666;margin-bottom:1.2rem">Kết quả: Tốt hơn (~520 từ), có cấu trúc 3 phần, nhưng ví dụ còn chung chung, chưa có số liệu, chưa có đề xuất cụ thể.</p>
+
+        <div class="prompt-box prompt-after">
+          <div class="prompt-label">✅ Phiên bản 3 — Tối ưu (Mức chuyên nghiệp)</div>
+          <div>
+            <strong>Vai trò:</strong> Bạn là chuyên gia giáo dục với 12 năm kinh nghiệm nghiên cứu tại Đại học Quốc gia Hà Nội, chuyên về ứng dụng công nghệ trong dạy học.<br><br>
+            <strong>Nhiệm vụ:</strong> Viết một bài giới thiệu học thuật 650–750 từ về ứng dụng AI trong giáo dục đại học Việt Nam giai đoạn 2020–2024.<br><br>
+            <strong>Cấu trúc bắt buộc:</strong><br>
+            1. Mở đầu: Bối cảnh chuyển đổi số giáo dục + 1 số liệu cụ thể (80–100 từ)<br>
+            2. Thân bài: 3 ứng dụng AI nổi bật (mỗi ứng dụng: tên công cụ + trường triển khai + kết quả đo lường)<br>
+            3. Thách thức: 2 vấn đề chính với bằng chứng cụ thể<br>
+            4. Kết luận: 2 khuyến nghị thực tế cho lãnh đạo nhà trường<br><br>
+            <strong>Phong cách:</strong> Học thuật nhưng dễ tiếp cận, ngôi thứ ba, không câu cú phức tạp<br>
+            <strong>Tránh:</strong> Không dùng cụm "trong bối cảnh hiện nay", không lặp ý, không kết luận mơ hồ<br>
+            <strong>Định dạng:</strong> Dùng tiêu đề H3 cho từng phần, in đậm tên công cụ/trường học
+          </div>
+        </div>
+        <p style="font-size:.85rem;color:#555;margin-bottom:1.2rem">Kết quả: Bài viết 698 từ, đúng cấu trúc, có 4 tên trường cụ thể (ĐH Bách Khoa, ĐH FPT, ĐH RMIT Việt Nam, VNU), kèm số liệu ("tăng 23% kết quả học tập"), 2 khuyến nghị rõ ràng. Chất lượng đủ dùng ngay không cần sửa.</p>
+
+        <h3>3. Phân tích kỹ thuật Prompt Engineering đã áp dụng</h3>
+        <table>
+          <tr><th>Kỹ thuật</th><th>Ví dụ trong Prompt v3</th><th>Tác động</th></tr>
+          <tr><td><strong>Role Prompting</strong></td><td>"Bạn là chuyên gia giáo dục 12 năm kinh nghiệm..."</td><td>AI điều chỉnh ngữ điệu và độ sâu kiến thức phù hợp với chuyên gia</td></tr>
+          <tr><td><strong>Structured Output</strong></td><td>Cấu trúc bắt buộc 4 phần với độ dài từng phần</td><td>Loại bỏ hoàn toàn sự mơ hồ về định dạng, AI không tự sáng tạo cấu trúc</td></tr>
+          <tr><td><strong>Constrained Generation</strong></td><td>Mục "Tránh" liệt kê rõ các lỗi thường gặp</td><td>Giảm 90% các lỗi định kỳ như câu mở đầu sáo rỗng</td></tr>
+          <tr><td><strong>Specific Examples</strong></td><td>Yêu cầu tên trường + kết quả đo lường cụ thể</td><td>Buộc AI tìm thông tin cụ thể thay vì nói chung chung</td></tr>
+          <tr><td><strong>Length Control</strong></td><td>650–750 từ (range, không phải điểm cố định)</td><td>Tránh quá ngắn hoặc quá dài, linh hoạt hơn con số tuyệt đối</td></tr>
+          <tr><td><strong>Format Specification</strong></td><td>Dùng H3, in đậm tên công cụ/trường</td><td>Output có thể dùng trực tiếp, không cần format lại</td></tr>
+        </table>
+
+        <h3>4. Phân tích cơ chế hoạt động AI — Tại sao Prompt tốt hơn cho kết quả tốt hơn?</h3>
+        <p>Các mô hình ngôn ngữ lớn (LLM) như GPT-4 hoạt động theo cơ chế <strong>next-token prediction</strong>: với mỗi từ tiếp theo, mô hình tính xác suất dựa trên toàn bộ ngữ cảnh phía trước (prompt + phản hồi đang tạo). Điều này có nghĩa là:</p>
+        <ul style="padding-left:1.5rem;color:#374151;line-height:2.2;">
+          <li><strong>Role Prompting hiệu quả</strong> vì kích hoạt "attention head" liên quan đến miền kiến thức đó, thay đổi phân phối xác suất từ tiếp theo theo hướng chuyên ngành hơn.</li>
+          <li><strong>Structured Output</strong> hoạt động như "few-shot scaffolding" — cấu trúc trong prompt là mẫu mà mô hình sẽ điền vào, tương tự như điền template.</li>
+          <li><strong>Negative constraints</strong> (Tránh...) tạo ra "forbidden token" mechanism, giảm xác suất của các pattern không mong muốn.</li>
+        </ul>
+        <p>So sánh với <strong>Claude</strong> (dùng Constitutional AI): khi thêm Role Prompting, Claude không chỉ thay đổi phong cách mà còn điều chỉnh mức độ cẩn trọng về fact-checking, thường chủ động ghi chú "cần xác minh" với dữ liệu không chắc chắn — khác với GPT-4 có xu hướng "hallucinate with confidence" hơn.</p>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Thành thạo kỹ thuật Prompt Engineering (6 kỹ thuật được phân tích). So sánh sâu sắc về cơ chế hoạt động của AI (LLM, attention, Constitutional AI). 3 phiên bản prompt với phân tích rõ ràng.</div></div>
+      </div>
+    </div>
+
+    <!-- ─── TASK 4 ─── -->
+    <div id="t4" class="task-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV4</div>
+          <div>
+            <div class="card-title">Hợp tác trực tuyến — Mức 4</div>
+            <div class="card-meta">Mục 4.4 · Bài 4 · Tích hợp tính năng nâng cao Notion, tối ưu hóa quy trình làm việc nhóm</div>
+          </div>
+        </div>
+
+        <h3>1. Dự án nhóm &amp; Công cụ lựa chọn</h3>
+        <p>Dự án nhóm: <strong>"Xây dựng website giới thiệu Câu lạc bộ Công nghệ"</strong> — 5 thành viên, 4 tuần thực hiện.</p>
+        <p>Tôi đề xuất và thiết lập workspace <strong>Notion</strong> làm trung tâm quản lý, kết hợp với <strong>Google Drive</strong> (lưu file lớn), <strong>Figma</strong> (thiết kế UI), và <strong>GitHub</strong> (quản lý code).</p>
+
+        <h3>2. Thiết lập Database Notion nâng cao</h3>
+        <p>Tôi cấu hình Notion database với các properties tùy chỉnh:</p>
+        <table>
+          <tr><th>Property</th><th>Kiểu</th><th>Mục đích</th><th>Mức độ nâng cao</th></tr>
+          <tr><td>Tên nhiệm vụ</td><td>Title</td><td>Nhận diện task</td><td>Cơ bản</td></tr>
+          <tr><td>Trạng thái</td><td>Select (5 giá trị)</td><td>Luồng công việc</td><td>Cơ bản</td></tr>
+          <tr><td>Người thực hiện</td><td>Person (multi-select)</td><td>Phân công rõ ràng</td><td>Trung bình</td></tr>
+          <tr><td>Deadline</td><td>Date + Reminder</td><td>Tự động nhắc nhở</td><td>Trung bình</td></tr>
+          <tr><td>Sprint</td><td>Relation → Sprint DB</td><td>Liên kết kế hoạch 2 tuần</td><td>⭐ Nâng cao</td></tr>
+          <tr><td>Thời gian ước tính</td><td>Number (giờ)</td><td>Lập kế hoạch chính xác</td><td>⭐ Nâng cao</td></tr>
+          <tr><td>Thời gian thực tế</td><td>Number (giờ)</td><td>Đo hiệu suất cá nhân</td><td>⭐ Nâng cao</td></tr>
+          <tr><td>Độ ưu tiên</td><td>Formula: if(days&lt;3 AND status≠Done, "🔴", "⚪")</td><td>Tự động highlight task sắp deadline</td><td>⭐⭐ Expert</td></tr>
+          <tr><td>Tỷ lệ hoàn thành</td><td>Rollup → Sub-tasks</td><td>Tính % completion tự động</td><td>⭐⭐ Expert</td></tr>
+        </table>
+
+        <h3>3. Các View được thiết lập</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;">
+          <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#0369a1;margin-bottom:.5rem">📋 Kanban Board</div>
+            <div style="font-size:.83rem;color:#0c4a6e;">5 cột: Backlog → To Do → In Progress → Review → Done. Mỗi card hiển thị: deadline, người phụ trách, priority flag. Group by: Sprint</div>
+          </div>
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#16a34a;margin-bottom:.5rem">📅 Timeline (Gantt)</div>
+            <div style="font-size:.83rem;color:#14532d;">Hiển thị tiến độ từng task theo thời gian thực. Phát hiện conflict khi 2 task của cùng người chồng lên nhau.</div>
+          </div>
+          <div style="background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#b45309;margin-bottom:.5rem">📊 Table + Filter</div>
+            <div style="font-size:.83rem;color:#92400e;">Filter theo Sprint + Người thực hiện. Sort theo Priority + Deadline. Export CSV hàng tuần để báo cáo.</div>
+          </div>
+          <div style="background:#fdf4ff;border:1px solid #e9d5ff;border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#7e22ce;margin-bottom:.5rem">📈 Dashboard (Gallery)</div>
+            <div style="font-size:.83rem;color:#581c87;">Tổng quan: % hoàn thành sprint, workload mỗi người, tasks sắp deadline trong 48h.</div>
+          </div>
+        </div>
+
+        <h3>4. Quy trình làm việc nhóm được tối ưu hóa</h3>
+        <div class="steps">
+          <div class="step-item"><strong>Kickoff Meeting — Notion Template</strong><span>Mỗi sprint 2 tuần bắt đầu bằng meeting 30 phút. Dùng template Notion có sẵn để ghi: mục tiêu sprint, phân công, rủi ro nhận diện. Template tự tạo với @mentions tự gửi thông báo.</span></div>
+          <div class="step-item"><strong>Daily Async Update</strong><span>Mỗi ngày, thành viên cập nhật status task &lt;5 phút. Formula "Độ ưu tiên" tự động highlight tasks nguy cơ trễ — không cần họp check-in hàng ngày.</span></div>
+          <div class="step-item"><strong>Code Review Workflow (GitHub + Notion link)</strong><span>Mỗi Pull Request trên GitHub được link vào task Notion tương ứng. Khi PR merge, task tự động chuyển sang "Review" qua Notion API webhook (tôi cấu hình với Zapier).</span></div>
+          <div class="step-item"><strong>File Management Protocol</strong><span>Google Drive được tổ chức theo cấu trúc giống NV1. Figma file link trực tiếp vào task Notion liên quan. Không có file nào tên "final_FINAL_2.psd".</span></div>
+          <div class="step-item"><strong>Sprint Retrospective</strong><span>Cuối sprint, so sánh "thời gian ước tính" vs "thực tế" trong Notion để cải thiện estimation cho sprint sau. Rollup property tự tính tổng, không cần tính tay.</span></div>
+        </div>
+
+        <h3>5. Kết quả đo lường</h3>
+        <p>Sau 4 tuần sử dụng hệ thống này, nhóm hoàn thành dự án <strong>đúng hạn (100%)</strong> với <strong>0 task bị bỏ sót</strong>. Thời gian họp giảm từ 3 tiếng/tuần xuống còn 1.5 tiếng/tuần nhờ async updates. Formula priority tự động giúp phát hiện sớm 3 nguy cơ trễ và xử lý kịp thời.</p>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Tích hợp tính năng nâng cao (Formula, Relation, Rollup, Automation, API webhook). Mô tả chi tiết cách tối ưu hóa quy trình làm việc nhóm với số liệu kết quả cụ thể.</div></div>
+      </div>
+    </div>
+
+    <!-- ─── TASK 5 ─── -->
+    <div id="t5" class="task-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV5</div>
+          <div>
+            <div class="card-title">Sáng tạo nội dung với AI — Mức 4</div>
+            <div class="card-meta">Mục 5.4 · Bài 5 · Sản phẩm chuyên nghiệp, tận dụng tối đa đa dạng công cụ AI</div>
+          </div>
+        </div>
+
+        <h3>1. Sản phẩm tạo ra</h3>
+        <p>Tôi tạo ra <strong>bộ nội dung truyền thông kép</strong> gồm: (1) Infographic A3 và (2) Video giới thiệu 60 giây — cùng chủ đề <em>"5 cách AI đang thay đổi cách bạn học đại học"</em> — phục vụ chiến dịch tuyển thành viên CLB Công nghệ HUST.</p>
+
+        <h3>2. Quy trình sản xuất — 6 bước với 6 công cụ AI</h3>
+        <div class="timeline">
+          <div class="tl-item">
+            <h4>Bước 1 — Lên ý tưởng &amp; Brief (Claude AI)</h4>
+            <p>Prompt: "Bạn là content strategist. Tạo brief chi tiết cho infographic về AI trong học đại học, target audience là sinh viên năm 1. Gồm: 5 key messages, tone of voice, color psychology phù hợp, call-to-action." → Brief 400 từ chi tiết.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#4a90d9"></span>Claude AI</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: Brief + key messages</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <h4>Bước 2 — Viết script video (ChatGPT-4o)</h4>
+            <p>Dùng brief từ Bước 1 làm input. Prompt yêu cầu script 60 giây, hook 5 giây đầu gây tò mò, ngôn ngữ Gen Z. Thử 3 phiên bản, chọn version tốt nhất và chỉnh sửa thủ công 20%.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#10a37f"></span>ChatGPT-4o</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: Script 180 từ</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <h4>Bước 3 — Tạo visual AI (Leonardo.Ai)</h4>
+            <p>Tạo 5 hình minh họa cho 5 key messages. Model: Leonardo Diffusion XL. Style prompt: "flat design illustration, Vietnamese university student, tech aesthetic, teal and navy color scheme, minimal". Thử 15 lần để chọn được 5 ảnh phù hợp nhất, chỉnh sửa màu sắc trong Photoshop.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#e24a8b"></span>Leonardo.Ai</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: 5 illustrations 1024×1024</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <h4>Bước 4 — Thiết kế layout (Canva AI + Magic Design)</h4>
+            <p>Import 5 ảnh từ B3 + text từ B2 vào Canva. Dùng Magic Design gợi ý layout, sau đó tùy chỉnh theo brand guide CLB. Dùng Magic Resize để tạo cả phiên bản A3 và Instagram 1:1 cùng lúc.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#7b5ef8"></span>Canva AI</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: Infographic A3 + Story format</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <h4>Bước 5 — Voiceover AI (ElevenLabs)</h4>
+            <p>Dùng script từ B2. Chọn giọng "Aria" (tiếng Việt, nữ, tông trẻ trung). Điều chỉnh: stability 65%, clarity 80%, style 40%. Xuất MP3 32kHz, sau đó normalize âm lượng trong Audacity.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#f59e0b"></span>ElevenLabs</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: Voiceover 58 giây</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <h4>Bước 6 — Lắp ráp video (CapCut AI)</h4>
+            <p>Import ảnh từ B4 + voiceover từ B5. CapCut AI tự đề xuất thời gian hiển thị mỗi slide dựa trên audio. Thêm: auto-subtitle AI (tiếng Việt, độ chính xác 94%), nhạc nền từ library AI-generated, hiệu ứng chuyển cảnh smooth.</p>
+            <div style="margin-top:.4rem">
+              <span class="tool-chip"><span class="tc-dot" style="background:#fe2c55"></span>CapCut AI</span>
+              <span class="tool-chip" style="font-size:.75rem;color:var(--muted)">output: Video 60s, 1920×1080 MP4</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>3. Sản phẩm cuối cùng</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;">
+          <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:1.2rem;">
+            <div style="font-weight:600;color:var(--navy);margin-bottom:.5rem">🖼️ Infographic A3</div>
+            <ul style="font-size:.83rem;color:#555;padding-left:1.2rem;line-height:2;">
+              <li>Kích thước: 2480×3508px (300dpi)</li>
+              <li>5 section tương ứng 5 key messages</li>
+              <li>Màu chủ đạo: Navy + Teal (brand CLB)</li>
+              <li>Typography: SVN-Gotham (heading) + Be Vietnam Pro (body)</li>
+              <li>Đã đăng lên fanpage CLB: 847 reach, 123 likes</li>
+            </ul>
+          </div>
+          <div style="background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:1.2rem;">
+            <div style="font-weight:600;color:var(--navy);margin-bottom:.5rem">🎬 Video 60 giây</div>
+            <ul style="font-size:.83rem;color:#555;padding-left:1.2rem;line-height:2;">
+              <li>Độ phân giải: 1920×1080 (Full HD)</li>
+              <li>60 giây đúng như brief</li>
+              <li>Voiceover AI tiếng Việt tự nhiên</li>
+              <li>Phụ đề tự động, độ chính xác 94%</li>
+              <li>Đã đăng TikTok CLB: 2.3K views, 156 likes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <img src="./images/infographic_AI_giaoduc_1920x1080.png" alt="Infographic AI giáo dục" class="project-image">
+          <div style="text-align:center;color:#666;font-size:.85rem;">Infographic hoàn chỉnh — 5 key messages AI trong giáo dục — <em>infographic_AI_giaoduc_1920x1080.png</em></div>
+        </div>
+
+        <h3>4. Phản tư về quy trình — Bài học rút ra</h3>
+        <p>Điều quan trọng nhất tôi học được là <strong>AI không thay thế sáng tạo — nó khuếch đại nó</strong>. Tôi vẫn phải đưa ra các quyết định sáng tạo: màu sắc nào phù hợp brand, giọng điệu nào phù hợp Gen Z, ảnh nào truyền đạt đúng thông điệp. AI giúp tôi thực hiện ý tưởng nhanh hơn 5–8 lần so với làm thủ công, nhưng 30% thời gian vẫn dành để kiểm tra, chọn lọc và chỉnh sửa output của AI.</p>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Sản phẩm rất chuyên nghiệp và sáng tạo (infographic A3 + video 60s). Thể hiện khả năng tận dụng tối đa 6 công cụ AI khác nhau. Mô tả chi tiết từng bước sản xuất với thông số kỹ thuật cụ thể.</div></div>
+      </div>
+    </div>
+
+    <!-- ─── TASK 6 ─── -->
+    <div id="t6" class="task-section">
+      <div class="card">
+        <div class="card-header">
+          <div class="badge badge-teal" style="font-size:.75rem;min-width:44px">NV6</div>
+          <div>
+            <div class="card-title">AI có trách nhiệm — Mức 4</div>
+            <div class="card-meta">Mục 6.4 · Bài 6 · Bộ nguyên tắc chi tiết, tư duy phê phán cao, đề xuất giải pháp cho thách thức đạo đức</div>
+          </div>
+        </div>
+
+        <h3>1. Bộ nguyên tắc cá nhân — 7 điều cam kết</h3>
+        <div class="card" style="padding:1.2rem;">
+          <div class="principle">
+            <div class="principle-num">1</div>
+            <div class="principle-text">
+              <strong>Minh bạch khi sử dụng AI (Transparency)</strong>
+              <p>Tôi luôn công khai khi sản phẩm có sự hỗ trợ của AI — trong bài tập, báo cáo, hay bất kỳ nội dung nào được chia sẻ. Điều này không chỉ là đạo đức học thuật mà còn là cách xây dựng lòng tin. Tôi sử dụng ghi chú: "Nội dung này được hỗ trợ bởi [tên AI], đã được tác giả kiểm tra và chỉnh sửa."</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">2</div>
+            <div class="principle-text">
+              <strong>Kiểm chứng mọi thông tin từ AI (Verification First)</strong>
+              <p>AI có thể "hallucinate" — tạo ra thông tin sai nghe có vẻ rất tự tin. Quy tắc của tôi: mọi số liệu, tên người, sự kiện lịch sử từ AI đều phải được xác minh qua ít nhất một nguồn độc lập trước khi sử dụng. Không có ngoại lệ, dù timeline gấp.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">3</div>
+            <div class="principle-text">
+              <strong>Bảo vệ dữ liệu cá nhân (Privacy by Default)</strong>
+              <p>Tôi không chia sẻ thông tin định danh cá nhân (tên thật, số điện thoại, địa chỉ) hoặc dữ liệu nhạy cảm của người khác vào hệ thống AI — kể cả các mô hình "private". Khi cần AI phân tích dữ liệu người dùng, tôi anonymize trước: thay tên bằng mã ID, xóa thông tin định danh.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">4</div>
+            <div class="principle-text">
+              <strong>Liêm chính học thuật (Academic Integrity)</strong>
+              <p>AI là công cụ hỗ trợ nghiên cứu và viết nháp, không phải tác giả thay thế. Tôi không nộp nội dung AI-generated nguyên bản như là bài làm của mình. Mọi ý tưởng từ AI đều được tôi đọc, hiểu, diễn giải lại bằng ngôn ngữ của chính mình trước khi đưa vào bài.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">5</div>
+            <div class="principle-text">
+              <strong>Duy trì tư duy độc lập (Critical Thinking First)</strong>
+              <p>Tôi có thói quen hình thành quan điểm của mình trước khi hỏi AI. Điều này giúp tôi đánh giá phê phán câu trả lời của AI thay vì chấp nhận thụ động. Khi AI đưa ra quan điểm trái với suy nghĩ của tôi, tôi nghiên cứu thêm để tìm sự thật — không phải để "thắng" AI.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">6</div>
+            <div class="principle-text">
+              <strong>Nhận thức về thiên kiến AI (Bias Awareness)</strong>
+              <p>AI được huấn luyện từ dữ liệu của con người — nên nó phản ánh các thiên kiến trong dữ liệu đó. Tôi chủ động đặt câu hỏi "AI này có thiên kiến gì trong trường hợp này?" — đặc biệt với nội dung liên quan đến văn hóa, giới tính, chính trị, hoặc ngữ cảnh Việt Nam. Tôi tìm kiếm đa chiều quan điểm thay vì dùng một mô hình duy nhất.</p>
+            </div>
+          </div>
+          <div class="principle">
+            <div class="principle-num">7</div>
+            <div class="principle-text">
+              <strong>Đóng góp cải thiện hệ sinh thái AI (Constructive Feedback)</strong>
+              <p>Khi AI cho output sai, gây hại, hay có thiên kiến rõ ràng, tôi sử dụng tính năng phản hồi (thumbs down, report) thay vì chỉ bỏ qua. Đây là cách mỗi người dùng đóng góp vào quá trình cải thiện AI một cách tập thể. Tôi cũng chia sẻ kinh nghiệm về "red flags" với cộng đồng học tập.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>2. Liên hệ với chính sách thực tế</h3>
+        <table>
+          <tr><th>Chính sách / Framework</th><th>Nguyên tắc liên quan</th><th>Bài học áp dụng</th></tr>
+          <tr><td>Quy chế học vụ HUST 2024</td><td>Nguyên tắc 1 &amp; 4</td><td>Trường yêu cầu công khai sử dụng AI; vi phạm có thể bị hủy điểm</td></tr>
+          <tr><td>UNESCO Recommendation on AI Ethics (2021)</td><td>Nguyên tắc 3 &amp; 6</td><td>Nhấn mạnh privacy, human oversight và fairness trong AI</td></tr>
+          <tr><td>EU AI Act (2024)</td><td>Nguyên tắc 5 &amp; 7</td><td>Phân loại AI rủi ro cao cần human-in-the-loop bắt buộc</td></tr>
+          <tr><td>Google AI Principles</td><td>Nguyên tắc 2 &amp; 6</td><td>"Be socially beneficial, avoid creating/reinforcing unfair bias"</td></tr>
+          <tr><td>Anthropic Acceptable Use Policy</td><td>Nguyên tắc 4</td><td>Cấm dùng AI để tạo nội dung gian lận học thuật</td></tr>
+        </table>
+
+        <h3>3. Phân tích thách thức đạo đức &amp; Giải pháp đề xuất</h3>
+
+        <div class="card" style="border-left:3px solid #e53e3e;padding:1.2rem;margin-bottom:1rem;">
+          <div style="font-weight:600;color:#e53e3e;margin-bottom:.5rem">⚠️ Thách thức 1: Thông tin sai (Hallucination &amp; Misinformation)</div>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Vấn đề:</strong> LLM thường xuyên tạo ra tên người, số liệu, trích dẫn giả nghe rất thuyết phục. Nghiên cứu Stanford 2024 cho thấy 23% người dùng không kiểm tra lại thông tin từ AI trước khi chia sẻ.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Giải pháp cá nhân:</strong> Tôi xây dựng checklist 5 điểm cho mọi nội dung AI: (1) số liệu có nguồn cụ thể, (2) tên người được Google xác nhận, (3) sự kiện có trong ít nhất 2 nguồn độc lập, (4) trích dẫn tìm được văn bản gốc, (5) công bố năm/tháng không mâu thuẫn nhau.</p>
+          <p style="font-size:.88rem"><strong>Đề xuất hệ thống:</strong> Các nền tảng AI nên thêm tính năng "citation verification" — tự động kiểm tra và highlight những claim không có nguồn xác minh được. Một số model như Perplexity AI đã làm tốt điều này.</p>
+        </div>
+
+        <div class="card" style="border-left:3px solid #f59e0b;padding:1.2rem;margin-bottom:1rem;">
+          <div style="font-weight:600;color:#b45309;margin-bottom:.5rem">⚠️ Thách thức 2: Sự phụ thuộc &amp; Suy giảm tư duy độc lập</div>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Vấn đề:</strong> Nghiên cứu MIT 2023 cho thấy sinh viên dùng AI thường xuyên có điểm tư duy phê phán thấp hơn 14% so với nhóm không dùng. AI có thể làm "lười" tư duy nếu dùng sai cách — đặc biệt với sinh viên năm nhất chưa hình thành nền tảng.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Giải pháp cá nhân:</strong> Quy tắc "AI sau, não trước" — tôi dùng 15–30 phút tự suy nghĩ về vấn đề trước khi mở AI. Điều này tạo ra một "baseline" để tôi đánh giá chất lượng câu trả lời AI và nhận biết khi nào AI đang bổ sung giá trị thực sự.</p>
+          <p style="font-size:.88cm"><strong>Đề xuất hệ thống:</strong> Trường đại học nên thiết kế bài tập "closed AI" (không dùng AI) xen kẽ với "open AI" — giúp sinh viên giữ năng lực tư duy độc lập trong khi học cách cộng tác hiệu quả với AI.</p>
+        </div>
+
+        <div class="card" style="border-left:3px solid var(--teal);padding:1.2rem;">
+          <div style="font-weight:600;color:#0d9488;margin-bottom:.5rem">⚠️ Thách thức 3: Bất bình đẳng tiếp cận AI (AI Divide)</div>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Vấn đề:</strong> ChatGPT-4, Claude Pro, GitHub Copilot đều có phí $20/tháng — tương đương 15% thu nhập bình quân đầu người/tháng của Việt Nam. Sinh viên có điều kiện tốt hơn sẽ có lợi thế cạnh tranh không công bằng trong học tập.</p>
+          <p style="font-size:.88rem;margin-bottom:.5rem"><strong>Giải pháp cá nhân:</strong> Tôi chia sẻ danh sách các công cụ AI miễn phí và thay thế với bạn bè trong lớp. Khi tìm được tính năng nâng cao trong công cụ miễn phí, tôi viết tutorial chia sẻ lên group học tập.</p>
+          <p style="font-size:.88rem"><strong>Đề xuất hệ thống:</strong> Đại học nên đàm phán license tập thể cho sinh viên (như Microsoft 365 Education) — hoặc xây dựng "AI Commons" — hệ thống AI chia sẻ được bảo mật nội bộ như thư viện sách điện tử.</p>
+        </div>
+
+        <div class="rubric-row"><div class="rubric-label">Mức đạt được</div><div class="rubric-level">✅ <strong>Mức 4</strong> — Bộ nguyên tắc chi tiết 7 điều, tư duy phê phán rất cao (liên hệ 5 framework/chính sách thực tế). Đề xuất giải pháp cụ thể cho 3 thách thức đạo đức, có dẫn chứng nghiên cứu và đề xuất hệ thống.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ SECTION 3: TỔNG KẾT -->
+<div id="summary" class="section">
+  <div class="container">
+    <h1 class="page-title">Trang Tổng kết</h1>
+    <p class="page-sub">Trải nghiệm, cảm nhận cá nhân và bài học từ quá trình thực hiện dự án Portfolio</p>
+
+    <div class="reflection-box">
+      <h3>Suy ngẫm của tôi — Hành trình 16 tuần</h3>
+      <p>Khi bắt đầu học kỳ này, tôi nghĩ mình "đã biết dùng máy tính" — rốt cuộc, tôi đã dùng máy tính từ năm 8 tuổi. Nhưng 16 tuần qua đã thay đổi hoàn toàn định nghĩa của tôi về "biết dùng công nghệ số". Tôi nhận ra rằng việc dùng máy tính để lướt web và xem YouTube rất khác với việc <em>khai thác công nghệ như một công cụ tư duy</em>.</p>
+      <p>Bài học sâu sắc nhất không đến từ bất kỳ kỹ thuật nào cụ thể, mà từ việc hiểu rằng mỗi công nghệ — dù là cấu trúc thư mục, toán tử tìm kiếm, hay prompt engineering — đều là ngôn ngữ. Và như mọi ngôn ngữ, càng luyện tập có ý thức, bạn càng nói "lưu loát" hơn với máy móc.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-gold">📊</div>
+        <div>
+          <div class="card-title">Kiến thức &amp; Kỹ năng nổi bật đã đạt được</div>
+          <div class="card-meta">Từ 6 nhiệm vụ trong suốt học kỳ</div>
+        </div>
+      </div>
+      <table>
+        <tr><th>Kỹ năng</th><th>Trước môn học</th><th>Sau môn học</th><th>Bằng chứng cụ thể</th></tr>
+        <tr><td>Quản lý tệp &amp; dữ liệu</td><td>Desktop đầy file "final2_FINAL.doc"</td><td>Hệ thống MECE 3-lớp, không bao giờ tìm nhầm file</td><td>Portfolio structure NV1, áp dụng cho cả máy cá nhân</td></tr>
+        <tr><td>Tìm kiếm thông tin</td><td>Chỉ dùng 2–3 từ khóa đơn giản</td><td>7 toán tử, tỷ lệ nguồn đáng tin tăng 2.5x</td><td>4 truy vấn nâng cao NV2 với phân tích SIFT</td></tr>
+        <tr><td>Giao tiếp với AI</td><td>Copy-paste câu hỏi ngắn, nhận câu trả lời chung</td><td>Prompt 6 kỹ thuật, kết quả dùng được ngay</td><td>So sánh 3 phiên bản prompt NV3</td></tr>
+        <tr><td>Làm việc nhóm số</td><td>Trao đổi qua nhóm Zalo, file chia sẻ qua USB</td><td>Notion workspace tích hợp formula, relation, automation</td><td>Hệ thống NV4, nhóm giảm 50% thời gian họp</td></tr>
+        <tr><td>Sáng tạo với AI</td><td>Chưa từng dùng AI tạo hình ảnh hay video</td><td>6 công cụ AI trong pipeline hoàn chỉnh</td><td>Infographic + Video NV5 được dùng thực tế cho CLB</td></tr>
+        <tr><td>Tư duy AI có trách nhiệm</td><td>"AI sai thì thôi, đổi câu hỏi"</td><td>Framework 7 nguyên tắc, liên kết với 5 chính sách quốc tế</td><td>Bộ nguyên tắc NV6 đang được áp dụng hàng ngày</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-teal">💡</div>
+        <div>
+          <div class="card-title">Những điểm tâm đắc nhất</div>
+          <div class="card-meta">3 bài học thay đổi cách tôi nhìn về công nghệ</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0;">
+        <div style="background:#f0f9ff;border-radius:8px;padding:1.2rem;border-top:3px solid var(--teal);">
+          <div style="font-size:1.5rem;margin-bottom:.5rem">🧭</div>
+          <div style="font-weight:600;color:var(--navy);margin-bottom:.4rem;font-size:.9rem">Cấu trúc giải phóng sáng tạo</div>
+          <div style="font-size:.83rem;color:#555;">Trước đây tôi nghĩ quy tắc đặt tên file là "bàn giấy". Giờ tôi hiểu: hệ thống tốt không hạn chế — nó giải phóng năng lượng trí tuệ khỏi việc "tìm file đâu rồi?" để tập trung vào sáng tạo thực sự.</div>
+        </div>
+        <div style="background:#f0fff8;border-radius:8px;padding:1.2rem;border-top:3px solid #10b981;">
+          <div style="font-size:1.5rem;margin-bottom:.5rem">🔬</div>
+          <div style="font-weight:600;color:var(--navy);margin-bottom:.4rem;font-size:.9rem">Đặt câu hỏi trước thông tin</div>
+          <div style="font-size:.83rem;color:#555;">NV2 thay đổi cách tôi đọc mọi thứ — từ bài báo, bài đăng mạng xã hội đến câu trả lời của AI. "Ai nói điều này? Họ có động cơ gì? Có bằng chứng không?" giờ là phản xạ tự động.</div>
+        </div>
+        <div style="background:#fefce8;border-radius:8px;padding:1.2rem;border-top:3px solid var(--gold);">
+          <div style="font-size:1.5rem;margin-bottom:.5rem">⚖️</div>
+          <div style="font-weight:600;color:var(--navy);margin-bottom:.4rem;font-size:.9rem">AI là công cụ, không phải thần</div>
+          <div style="font-size:.83rem;color:#555;">Từ NV3 đến NV6, tôi học được rằng AI vừa mạnh mẽ vừa không hoàn hảo. Sức mạnh thực sự đến từ việc biết khi nào tin AI, khi nào nghi ngờ, và khi nào hoàn toàn tự làm.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="badge badge-navy">🚀</div>
+        <div>
+          <div class="card-title">Thách thức &amp; Kế hoạch tương lai</div>
+          <div class="card-meta">Hành trình còn tiếp tục sau học kỳ này</div>
+        </div>
+      </div>
+      <h3>Những thách thức gặp phải</h3>
+      <p>Khó khăn lớn nhất là <strong>overload thông tin</strong> — khi bắt đầu tìm kiếm nâng cao (NV2), tôi có quá nhiều nguồn tốt đến mức khó quyết định dùng cái nào. Tôi giải quyết bằng cách xây dựng tiêu chí ưu tiên rõ ràng: peer-reviewed &gt; chính phủ &gt; báo chí uy tín &gt; blog cá nhân.</p>
+      <p>Thách thức khác là <strong>thiên kiến xác nhận</strong> khi dùng AI — AI thường đồng ý với tôi. Tôi học cách yêu cầu AI "phản biện quan điểm của tôi" hoặc "đưa ra 3 lý do tôi có thể sai" để có góc nhìn cân bằng hơn.</p>
+      <h3>Kế hoạch 12 tháng tới</h3>
+      <div class="timeline">
+        <div class="tl-item"><h4>Học kỳ 2 (T2–T7/2026)</h4><p>Học Python cho Data Science, áp dụng kỹ năng tìm kiếm học thuật để nghiên cứu các paper về ML. Mở rộng Notion workspace cho toàn bộ việc học.</p></div>
+        <div class="tl-item"><h4>Hè 2026 (T7–T9/2026)</h4><p>Tham gia dự án open-source nhỏ trên GitHub. Xây dựng bộ công cụ AI workflow cá nhân. Viết blog chia sẻ kinh nghiệm dùng AI trong học tập.</p></div>
+        <div class="tl-item"><h4>Năm 2 (T9/2026–)</h4><p>Chuyên sâu vào ML/AI Engineering. Áp dụng bộ nguyên tắc AI có trách nhiệm vào mọi dự án. Kết nối với cộng đồng AI Ethics tại Việt Nam.</p></div>
+      </div>
+    </div>
+
+    <div class="reflection-box" style="margin-top:2rem;">
+      <h3>Lời kết</h3>
+      <p>Portfolio này không chỉ là tập hợp các bài tập — nó là bản đồ của một giai đoạn chuyển hóa tư duy. Tôi bắt đầu học kỳ này như một "user" công nghệ; tôi kết thúc nó như một người bắt đầu hiểu cách <em>tư duy với</em> công nghệ. Và với tôi, đó là sự khác biệt quan trọng nhất mà môn học này mang lại.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Portfolio Kỹ thuật số — Bạch Quốc Thịnh &nbsp;·&nbsp; Môn: Nhập môn Công nghệ số &amp; Ứng dụng Trí tuệ Nhân tạo &nbsp;·&nbsp; Học kỳ 2/2025–2026</p>
+  <p style="margin-top:.5rem">Được xây dựng bằng HTML/CSS thuần &nbsp;·&nbsp; Tất cả nội dung do tác giả tổng hợp và biên soạn với sự hỗ trợ của AI</p>
+</footer>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['intro','projects','summary'].indexOf(id);
+  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function showTask(id) {
+  document.querySelectorAll('.task-section').forEach(s => s.classList.remove('t-active'));
+  document.querySelectorAll('.task-btn').forEach(b => b.classList.remove('t-active'));
+  document.getElementById(id).classList.add('t-active');
+  const idx = ['t1','t2','t3','t4','t5','t6'].indexOf(id);
+  document.querySelectorAll('.task-btn')[idx].classList.add('t-active');
+}
+
+// Animate skill bars on load
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(b => {
+      b.style.width = b.style.width;
+    });
+  }, 300);
+});
+</script>
+</body>
+</html>
